@@ -32,6 +32,10 @@ impl <L:Copy+Clone+Ord+PartialOrd+Eq+PartialEq, D:Copy+Clone+Ord+PartialOrd+Eq+P
             .insert(end, distance);
         self.distances = self.distances.insert(start, updated);
     }
+
+    pub fn all_locations(&self) -> Vec<L> {
+        self.distances.keys().map(|loc| *loc).collect()
+    }
 }
 
 #[cfg(test)]
@@ -46,5 +50,6 @@ mod tests {
         assert_eq!(graph.get('b', 'c').unwrap(), 10);
         assert_eq!(graph.get('c', 'b').unwrap(), 10);
         assert_eq!(graph.get('a', 'c'), None);
+        assert_eq!(graph.all_locations(), vec!['a','b','c']);
     }
 }
